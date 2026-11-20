@@ -14,6 +14,15 @@ POST /score  {"amount": 18500, "hour": 2, "channel": "collect", "amount_to_avg_3
                "many transactions in the last hour", "unusually large amount"]}
 ```
 
+## Dashboard
+
+```bash
+pip install -e '.[dashboard]'      # streamlit + plotly
+streamlit run dashboard/app.py
+```
+
+Model comparison and precision–recall curves · a **threshold explorer** (drag the slider, watch precision, recall and ₹ savings move) · a live transaction feed with allow/review/block decisions · a form to score any transaction with its top reasons · what drives alerts.
+
 ## Why this is harder than it looks
 
 - **Accuracy is meaningless.** Flagging nothing at all is 99.7% accurate. This repo reports

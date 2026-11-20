@@ -82,6 +82,8 @@ def main() -> None:
     amt_va, amt_te = val[amount_col].to_numpy(), test[amount_col].to_numpy()
 
     results, fitted, curves = [], {}, {}
+    scores = test[["txn_id", "timestamp", amount_col, TARGET]].copy() if "txn_id" in test else \
+        test[["timestamp", amount_col, TARGET]].copy()
     for kind, strategy in EXPERIMENTS:
         est, secs = fit_one(kind, strategy, Xtr, ytr)
         p_va, p_te = est.predict_proba(Xva)[:, 1], est.predict_proba(Xte)[:, 1]
@@ -92,6 +94,7 @@ def main() -> None:
         results.append(row)
         fitted[(kind, strategy)] = (est, p_va, p_te)
         curves[f"{row['model']} / {strategy}"] = precision_recall_curve(yte, p_te)[:2]
+        scores[f"p::{row['model']} / {strategy}"] = np.round(p_te, 6)
         print(f"{row['model']:38s} {strategy:12s} val PR-AUC {row['val_pr_auc']:.3f}  "
               f"test PR-AUC {row['test_pr_auc']:.3f}  recall {row['test_recall']:.3f}  precision {row['test_precision']:.3f}")
 
@@ -132,6 +135,9 @@ def main() -> None:
                "thresholds": {"review": round(t_review, 5), "block": round(t_block, 5)}, "tiers_on_test": tiers,
                "importance": importance, "examples": examples}
     (rep / "results.json").write_text(json.dumps(summary, indent=2, default=str))
+    scores = scores.rename(columns={amount_col: "amount"})
+    scores["p::selected"] = np.round(p_te, 6)
+    scores.to_csv(rep / "test_scores.csv.gz", index=False)            # powers the dashboard
     write_report(summary, rep)
     plot(curves, importance, rep)
     print(f"\nselected: {model.name}  thresholds review={t_review:.4f} block={t_block:.4f}")

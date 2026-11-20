@@ -4,13 +4,13 @@ Data: **upi**, 200,000 transactions, fraud rate 0.300%. Chronological split trai
 
 | Model | Imbalance handling | Val PR-AUC | Test PR-AUC | Test ROC-AUC | Precision | Recall | Fraud ₹ caught | Alerts per 1k txns | Train s |
 |---|---|---|---|---|---|---|---|---|---|
-| Logistic regression | class_weight | 0.252 | 0.219 | 0.938 | 0.091 | 0.714 | 89.9% | 23.8 | 0.2 |
-| Gradient boosting (sklearn HistGB) | none | 0.496 | 0.531 | 0.949 | 0.074 | 0.813 | 95.0% | 33.2 | 2.1 |
-| Gradient boosting (sklearn HistGB) | class_weight | 0.370 | 0.465 | 0.951 | 0.059 | 0.813 | 95.4% | 42.1 | 3.0 |
+| Logistic regression | class_weight | 0.252 | 0.219 | 0.938 | 0.091 | 0.714 | 89.9% | 23.8 | 0.3 |
+| Gradient boosting (sklearn HistGB) | none | 0.496 | 0.531 | 0.949 | 0.074 | 0.813 | 95.0% | 33.2 | 2.0 |
+| Gradient boosting (sklearn HistGB) | class_weight | 0.370 | 0.465 | 0.951 | 0.059 | 0.813 | 95.4% | 42.1 | 3.4 |
 | Gradient boosting (sklearn HistGB) | oversample | 0.488 | 0.551 | 0.934 | 0.120 | 0.769 | 93.4% | 19.4 | 7.6 |
-| Gradient boosting (sklearn HistGB) | smote | 0.458 | 0.548 | 0.943 | 0.067 | 0.780 | 92.2% | 35.5 | 7.7 |
-| Neural net (sklearn MLP) | oversample | 0.338 | 0.463 | 0.913 | 0.043 | 0.714 | 87.3% | 50.9 | 8.5 |
-| Neural net (sklearn MLP) | smote | 0.339 | 0.405 | 0.912 | 0.217 | 0.494 | 58.6% | 6.9 | 12.0 |
+| Gradient boosting (sklearn HistGB) | smote | 0.458 | 0.548 | 0.943 | 0.067 | 0.780 | 92.2% | 35.5 | 8.2 |
+| Neural net (sklearn MLP) | oversample | 0.338 | 0.463 | 0.913 | 0.043 | 0.714 | 87.3% | 50.9 | 8.4 |
+| Neural net (sklearn MLP) | smote | 0.339 | 0.405 | 0.912 | 0.217 | 0.494 | 58.6% | 6.9 | 12.2 |
 
 **Selected (best validation PR-AUC):** Gradient boosting (sklearn HistGB) + none
 

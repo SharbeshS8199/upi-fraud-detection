@@ -13,3 +13,4 @@ mlruns/
 *.safetensors
 models/
 data/*.csv
+reports/test_scores.csv.gz
