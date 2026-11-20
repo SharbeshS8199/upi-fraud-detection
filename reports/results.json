@@ -1,0 +1,201 @@
+{
+  "data": "upi",
+  "rows": 200000,
+  "fraud_rate": 0.003,
+  "split": {
+    "train": 140000,
+    "val": 30000,
+    "test": 30000
+  },
+  "review_cost": 30.0,
+  "results": [
+    {
+      "model": "Logistic regression",
+      "kind": "logreg",
+      "imbalance": "class_weight",
+      "train_sec": 0.2,
+      "val_pr_auc": 0.2518,
+      "test_pr_auc": 0.2194,
+      "test_roc_auc": 0.9377,
+      "test_precision": 0.091,
+      "test_recall": 0.7143,
+      "test_flag_rate": 0.0238,
+      "test_fraud_amount_caught_pct": 0.8989,
+      "test_net_savings": 260797.0
+    },
+    {
+      "model": "Gradient boosting (sklearn HistGB)",
+      "kind": "gbdt",
+      "imbalance": "none",
+      "train_sec": 2.1,
+      "val_pr_auc": 0.4962,
+      "test_pr_auc": 0.5314,
+      "test_roc_auc": 0.9491,
+      "test_precision": 0.0743,
+      "test_recall": 0.8132,
+      "test_flag_rate": 0.0332,
+      "test_fraud_amount_caught_pct": 0.9495,
+      "test_net_savings": 268234.0
+    },
+    {
+      "model": "Gradient boosting (sklearn HistGB)",
+      "kind": "gbdt",
+      "imbalance": "class_weight",
+      "train_sec": 3.0,
+      "val_pr_auc": 0.3696,
+      "test_pr_auc": 0.4648,
+      "test_roc_auc": 0.9506,
+      "test_precision": 0.0586,
+      "test_recall": 0.8132,
+      "test_flag_rate": 0.04207,
+      "test_fraud_amount_caught_pct": 0.954,
+      "test_net_savings": 261661.0
+    },
+    {
+      "model": "Gradient boosting (sklearn HistGB)",
+      "kind": "gbdt",
+      "imbalance": "oversample",
+      "train_sec": 7.6,
+      "val_pr_auc": 0.4878,
+      "test_pr_auc": 0.5511,
+      "test_roc_auc": 0.9344,
+      "test_precision": 0.1205,
+      "test_recall": 0.7692,
+      "test_flag_rate": 0.01937,
+      "test_fraud_amount_caught_pct": 0.9336,
+      "test_net_savings": 275688.0
+    },
+    {
+      "model": "Gradient boosting (sklearn HistGB)",
+      "kind": "gbdt",
+      "imbalance": "smote",
+      "train_sec": 7.7,
+      "val_pr_auc": 0.4584,
+      "test_pr_auc": 0.5483,
+      "test_roc_auc": 0.9432,
+      "test_precision": 0.0667,
+      "test_recall": 0.7802,
+      "test_flag_rate": 0.03547,
+      "test_fraud_amount_caught_pct": 0.9222,
+      "test_net_savings": 257612.0
+    },
+    {
+      "model": "Neural net (sklearn MLP)",
+      "kind": "mlp",
+      "imbalance": "oversample",
+      "train_sec": 8.5,
+      "val_pr_auc": 0.3378,
+      "test_pr_auc": 0.4625,
+      "test_roc_auc": 0.9127,
+      "test_precision": 0.0426,
+      "test_recall": 0.7143,
+      "test_flag_rate": 0.05087,
+      "test_fraud_amount_caught_pct": 0.8731,
+      "test_net_savings": 228340.0
+    },
+    {
+      "model": "Neural net (sklearn MLP)",
+      "kind": "mlp",
+      "imbalance": "smote",
+      "train_sec": 12.0,
+      "val_pr_auc": 0.3392,
+      "test_pr_auc": 0.4045,
+      "test_roc_auc": 0.912,
+      "test_precision": 0.2174,
+      "test_recall": 0.4945,
+      "test_flag_rate": 0.0069,
+      "test_fraud_amount_caught_pct": 0.5857,
+      "test_net_savings": 177688.0
+    }
+  ],
+  "selected": "Gradient boosting (sklearn HistGB) + none",
+  "thresholds": {
+    "review": 0.00558,
+    "block": 0.72888
+  },
+  "tiers_on_test": {
+    "block": {
+      "n": 18,
+      "fraud": 17
+    },
+    "review": {
+      "n": 978,
+      "fraud": 57
+    },
+    "allow": {
+      "n": 29004,
+      "fraud": 17
+    }
+  },
+  "importance": [
+    [
+      "amount_to_avg_30d",
+      2.8911756756756763
+    ],
+    [
+      "txns_last_24h",
+      1.2526486486486488
+    ],
+    [
+      "txns_last_1h",
+      1.0820405405405404
+    ],
+    [
+      "payee_account_age_days",
+      0.7821891891891891
+    ],
+    [
+      "is_collect_request",
+      0.6319054054054054
+    ],
+    [
+      "is_new_payee",
+      0.5618513513513514
+    ],
+    [
+      "txn_type",
+      0.4614864864864865
+    ],
+    [
+      "distance_from_home_km",
+      0.4070675675675677
+    ],
+    [
+      "sim_swap_last_48h",
+      0.40447297297297297
+    ],
+    [
+      "device_age_days",
+      0.35627027027027025
+    ]
+  ],
+  "examples": [
+    {
+      "txn_id": "T00170199",
+      "p": 0.0085,
+      "reasons": [
+        "amount is far above this user's usual spend",
+        "it is a collect (payment request) approval",
+        "far from the user's usual location"
+      ]
+    },
+    {
+      "txn_id": "T00170941",
+      "p": 0.9229,
+      "reasons": [
+        "amount is far above this user's usual spend",
+        "payee account was opened very recently",
+        "first payment to this payee"
+      ]
+    },
+    {
+      "txn_id": "T00171026",
+      "p": 0.6252,
+      "reasons": [
+        "amount is far above this user's usual spend",
+        "it is a collect (payment request) approval",
+        "first payment to this payee"
+      ]
+    }
+  ]
+}
